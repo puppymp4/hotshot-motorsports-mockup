@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://hotshot.riftmedia.cc/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://hotshot.riftmedia.cc/images/build-04-hostile-phantom.jpg</image:loc>
+      <image:title>Lifted GMC Denali HD on 30x16 Hostile Forged wheels by Hotshot Motorsports Fresno</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hotshot.riftmedia.cc/images/build-01-sema-f450.jpg</image:loc>
+      <image:title>2024 Ford F450 Limited SEMA build by Hotshot Motorsports Fresno</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hotshot.riftmedia.cc/images/build-08-specialty.jpg</image:loc>
+      <image:title>White lifted GMC Denali at SEMA on Specialty Forged wheels</image:title>
+    </image:image>
+  </url>
+</urlset>
