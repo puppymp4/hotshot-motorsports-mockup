@@ -392,6 +392,63 @@ p{margin:0 0 16px}
   .t-wide{grid-column:span 2}
 }
 
+/* ---------- Merch ---------- */
+.merch{background:var(--bg);position:relative;overflow:hidden}
+.merch::before{
+  content:"";position:absolute;top:50%;left:-200px;width:500px;height:500px;
+  background:radial-gradient(circle,var(--ember-glow),transparent 60%);
+  filter:blur(70px);pointer-events:none;transform:translateY(-50%);opacity:.6;
+}
+.merch-grid{
+  display:grid;gap:18px;grid-template-columns:repeat(2,1fr);position:relative;
+}
+@media(min-width:768px){.merch-grid{grid-template-columns:repeat(4,1fr);gap:22px}}
+.merch-card{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);background:var(--bg-elev);
+  display:flex;flex-direction:column;
+  transition:transform .3s var(--ease),border-color .25s var(--ease);
+  cursor:pointer;
+}
+.merch-card:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+.merch-stage{
+  position:relative;aspect-ratio:1/1;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 120% at 50% 30%, var(--m-bg-light, #1a1a1a) 0%, var(--m-bg-dark, #0a0a0a) 100%);
+}
+.merch-stage::before{
+  content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px,transparent 1px,transparent 6px);
+  pointer-events:none;
+}
+.merch-stage img{
+  width:62%;max-width:200px;height:auto;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.08);
+  box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 60px rgba(243,107,28,.15);
+  transition:transform .5s var(--ease);
+  position:relative;z-index:1;
+}
+.merch-card:hover .merch-stage img{transform:scale(1.05) rotate(-2deg)}
+.merch-tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 10px;border-radius:6px;
+  background:rgba(0,0,0,.65);backdrop-filter:blur(6px);
+  color:var(--ember);border:1px solid rgba(243,107,28,.35);
+}
+.merch-soon{
+  position:absolute;top:14px;right:14px;z-index:2;
+  font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 10px;border-radius:6px;
+  background:rgba(243,107,28,.92);color:#0A0A0A;
+}
+.merch-info{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px}
+.merch-name{font-family:var(--display);font-weight:900;font-size:17px;letter-spacing:-.005em;text-transform:uppercase;color:var(--text)}
+.merch-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:2px}
+.merch-price{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ember);letter-spacing:.02em}
+.merch-from{font-size:11px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+
 /* ---------- Process ---------- */
 .process{background:var(--bg)}
 .process-grid{display:grid;gap:24px;grid-template-columns:1fr}
@@ -544,13 +601,26 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .field.invalid .error{display:block}
 
 .file-drop{
-  border:1.5px dashed var(--line-strong);border-radius:12px;padding:24px;text-align:center;
-  cursor:pointer;transition:all .2s;color:var(--muted);font-size:14px;background:rgba(0,0,0,.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  border-radius:12px;padding:32px 24px;text-align:center;
+  cursor:pointer;transition:background-color .2s,color .2s;color:var(--muted);font-size:14px;
+  background-color:rgba(255,255,255,.02);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='12' ry='12' fill='none' stroke='%233A3A3A' stroke-width='2' stroke-dasharray='8 6'/></svg>");
 }
-.file-drop:hover{border-color:var(--ember);color:var(--ember);background:rgba(243,107,28,.04)}
+.file-drop:hover{
+  background-color:rgba(243,107,28,.05);color:var(--ember);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='12' ry='12' fill='none' stroke='%23F36B1C' stroke-width='2' stroke-dasharray='8 6'/></svg>");
+}
 .file-drop input{display:none}
-.file-drop svg{width:24px;height:24px;margin:0 auto 8px;display:block}
-.file-name{margin-top:10px;font-size:13px;color:var(--text);font-weight:500}
+.file-drop .upload-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(243,107,28,.1);border:1px solid rgba(243,107,28,.3);
+  display:flex;align-items:center;justify-content:center;color:var(--ember);
+  margin-bottom:4px;transition:transform .25s var(--ease);
+}
+.file-drop:hover .upload-icon{transform:translateY(-2px) scale(1.04)}
+.file-drop .upload-icon svg{width:22px;height:22px}
+.file-name{margin-top:6px;font-size:13px;color:var(--text);font-weight:600}
 
 .form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
 .form-nav .btn-back{
@@ -642,6 +712,7 @@ footer{
     <nav class="nav-links" aria-label="Primary">
       <a href="#services">Services</a>
       <a href="#builds">Builds</a>
+      <a href="#merch">Merch</a>
       <a href="#process">Process</a>
       <a href="#why">Why Us</a>
       <a href="#contact">Contact</a>
@@ -656,6 +727,7 @@ footer{
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="#services" data-mclose>Services</a>
   <a href="#builds" data-mclose>Builds</a>
+  <a href="#merch" data-mclose>Merch</a>
   <a href="#process" data-mclose>Process</a>
   <a href="#why" data-mclose>Why Us</a>
   <a href="#contact" data-mclose>Contact</a>
@@ -893,6 +965,81 @@ footer{
   </div>
 </section>
 
+<!-- ============== MERCH ============== -->
+<section class="merch" id="merch">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="head-copy">
+        <span class="eyebrow">Hotshot Merch</span>
+        <h2>Wear the brand.<br>Rep the <span style="color:var(--ember)">shop.</span></h2>
+      </div>
+      <p class="lede">Apparel cut from the same playbook as the builds. Heavyweight cotton. Embroidered patches. Limited drops. Tag us when you wear it. We repost the cleanest fits monthly.</p>
+    </div>
+
+    <div class="merch-grid reveal">
+      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage" style="--m-bg-light:#1c1c1c;--m-bg-dark:#080808">
+          <span class="merch-tag">Tee</span>
+          <img src="/images/logo.jpg" alt="Hotshot Motorsports embroidered tee">
+        </div>
+        <div class="merch-info">
+          <div class="merch-name">Shop Tee · Black</div>
+          <div class="merch-row">
+            <span><span class="merch-from">From</span><span class="merch-price">$32</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage" style="--m-bg-light:#0c1a26;--m-bg-dark:#04080d">
+          <span class="merch-tag">Hoodie</span>
+          <span class="merch-soon">New Drop</span>
+          <img src="/images/logo.jpg" alt="Hotshot Motorsports heavyweight hoodie">
+        </div>
+        <div class="merch-info">
+          <div class="merch-name">Heavyweight Hoodie</div>
+          <div class="merch-row">
+            <span><span class="merch-from">From</span><span class="merch-price">$68</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage" style="--m-bg-light:#1f1410;--m-bg-dark:#0a0604">
+          <span class="merch-tag">Snapback</span>
+          <img src="/images/logo.jpg" alt="Hotshot Motorsports embroidered snapback hat">
+        </div>
+        <div class="merch-info">
+          <div class="merch-name">Embroidered Snapback</div>
+          <div class="merch-row">
+            <span><span class="merch-from">From</span><span class="merch-price">$38</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage" style="--m-bg-light:#181818;--m-bg-dark:#060606">
+          <span class="merch-tag">Decals</span>
+          <img src="/images/logo.jpg" alt="Hotshot Motorsports vinyl decal sticker pack">
+        </div>
+        <div class="merch-info">
+          <div class="merch-name">Vinyl Decal Pack</div>
+          <div class="merch-row">
+            <span><span class="merch-from">From</span><span class="merch-price">$12</span></span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:48px;position:relative" class="reveal">
+      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="btn btn-primary">
+        Shop The Full Collection
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ============== PROCESS ============== -->
 <section class="process" id="process">
   <div class="wrap">
@@ -1084,8 +1231,10 @@ footer{
               <span class="error">Drop a few lines so we can build it right.</span>
             </label>
             <label class="file-drop" for="photo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              Optional: drop a reference photo or screenshot
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l-4-4-4 4"/><path d="M12 12v9"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+              </span>
+              <span>Optional: drop a reference photo or screenshot</span>
               <input type="file" id="photo" accept="image/*">
               <div class="file-name" id="fileName"></div>
             </label>
@@ -1189,6 +1338,7 @@ footer{
         <ul>
           <li><a href="#services">Services</a></li>
           <li><a href="#builds">Builds</a></li>
+          <li><a href="#merch">Merch</a></li>
           <li><a href="#process">Process</a></li>
           <li><a href="#why">Why Us</a></li>
           <li><a href="#contact">Contact</a></li>
