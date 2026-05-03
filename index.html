@@ -93,20 +93,29 @@
 
 <style>
 :root{
-  --bg:#0A0A0A;
-  --bg-elev:#141414;
-  --bg-raised:#1F1F1F;
-  --bg-deep:#050505;
-  --line:#262626;
-  --line-strong:#3A3A3A;
+  /* warm charcoal base — pulls a touch of brown undertone, kills the muddy flat-black look */
+  --bg:#0E0C0A;
+  --bg-elev:#16130F;
+  --bg-raised:#1F1B16;
+  --bg-deep:#070605;
+  --line:#2B2620;
+  --line-strong:#3F3830;
   --text:#FAFAFA;
-  --muted:#9CA3AF;
+  --muted:#A0A4AA;
   --dim:#6B6B6B;
-  --ember:#F36B1C;
-  --ember-deep:#C75414;
-  --ember-glow:rgba(243,107,28,.32);
+  /* ember red-shifted — hot-coal, more flame, less pumpkin */
+  --ember:#E94B22;
+  --ember-deep:#B83612;
+  --ember-light:#FF9E78;
+  --ember-glow:rgba(233,75,34,.32);
+  --ember-soft:rgba(233,75,34,.08);
+  /* chrome accents */
   --chrome:#C9CDD4;
+  --chrome-bright:#E8EBF0;
   --gold:#E8B341;
+  /* fine carbon weave — applied as overlay across sections */
+  --carbon:repeating-linear-gradient(45deg, rgba(255,255,255,.018) 0 1px, transparent 1px 5px);
+  --carbon-fine:repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 1px, transparent 1px 4px);
   --display:'Archivo',system-ui,sans-serif;
   --body:'Inter',system-ui,sans-serif;
   --max:1320px;
@@ -140,9 +149,41 @@ button{font:inherit;cursor:pointer;border:0;background:transparent;color:inherit
 @media(min-width:768px){.wrap{padding:0 32px}}
 @media(min-width:1024px){.wrap{padding:0 48px}}
 
-section{padding:96px 0;position:relative}
+section{padding:96px 0;position:relative;isolation:isolate}
 @media(min-width:768px){section{padding:128px 0}}
 @media(min-width:1024px){section{padding:160px 0}}
+
+/* ---------- Atmospheric layer: carbon weave + chrome rules + ambient ember ----------
+   Applied to every section EXCEPT the hero (which has its own treatment).
+   Carbon weave: 1px diagonal lines at ~1.8% opacity = tactile brushed-metal texture.
+   Chrome rule: hairline gradient at the top of each section, like polished trim.
+   Ember glow: soft radial accent off one corner per section so the bg never reads flat.
+*/
+.services, .builds, .merch, .process, .why, .contact, footer{
+  background-image:var(--carbon);
+}
+/* chrome trim between sections */
+.services::before, .builds::before, .merch::before, .process::before, .why::before, .contact::before, footer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;z-index:6;pointer-events:none;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(232,235,240,.05) 15%,
+    rgba(232,235,240,.45) 50%,
+    rgba(232,235,240,.05) 85%,
+    transparent 100%);
+}
+/* ambient ember glows — different position per section for visual rhythm */
+.services::after, .builds::after, .merch::after, .process::after{
+  content:"";position:absolute;pointer-events:none;z-index:0;
+  background:radial-gradient(circle, var(--ember-glow), transparent 60%);
+  filter:blur(70px);opacity:.5;
+}
+.services::after{top:-180px;right:-200px;width:560px;height:560px}
+.builds::after{bottom:-260px;left:-180px;width:640px;height:640px;opacity:.4}
+.merch::after{top:50%;right:-220px;width:520px;height:520px;transform:translateY(-50%);opacity:.42}
+.process::after{top:-160px;left:-180px;width:480px;height:480px;opacity:.38}
+/* keep section content above the glow */
+.services > .wrap, .builds > .wrap, .merch > .wrap, .process > .wrap, .why > .wrap, .contact > .wrap{position:relative;z-index:2}
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;
@@ -177,9 +218,9 @@ p{margin:0 0 16px}
 .btn:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
 .btn-primary{
   background:var(--ember);color:#0A0A0A;
-  box-shadow:0 0 0 0 var(--ember-glow), 0 12px 32px -12px rgba(243,107,28,.65);
+  box-shadow:0 0 0 0 var(--ember-glow), 0 12px 32px -12px rgba(233,75,34,.65);
 }
-.btn-primary:hover{background:#FF7A28;transform:translateY(-2px);box-shadow:0 0 0 6px var(--ember-glow), 0 18px 40px -12px rgba(243,107,28,.7)}
+.btn-primary:hover{background:#FF5C2E;transform:translateY(-2px);box-shadow:0 0 0 6px var(--ember-glow), 0 18px 40px -12px rgba(233,75,34,.7)}
 .btn-ghost{
   border-color:var(--line-strong);color:var(--text);background:rgba(255,255,255,.02);
   backdrop-filter:blur(6px);
@@ -268,9 +309,9 @@ p{margin:0 0 16px}
   margin-bottom:24px;
 }
 .hero h1 .ember{
-  background:linear-gradient(180deg,#FFB36B 0%,#F36B1C 60%,#C75414 100%);
+  background:linear-gradient(180deg,var(--ember-light) 0%,var(--ember) 55%,var(--ember-deep) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 0 30px var(--ember-glow);
+  text-shadow:0 0 40px var(--ember-glow);
 }
 .hero-sub{font-size:clamp(17px,1.6vw,22px);color:#D4D4D4;max-width:62ch;margin-bottom:40px;line-height:1.5}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
@@ -336,8 +377,8 @@ p{margin:0 0 16px}
 .svc:hover::before{opacity:1}
 .svc-icon{
   width:54px;height:54px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(243,107,28,.18),rgba(243,107,28,.04));
-  border:1px solid rgba(243,107,28,.4);
+  background:linear-gradient(135deg,rgba(233,75,34,.18),rgba(233,75,34,.04));
+  border:1px solid rgba(233,75,34,.4);
   display:flex;align-items:center;justify-content:center;color:var(--ember);
   margin-bottom:24px;
 }
@@ -351,11 +392,6 @@ p{margin:0 0 16px}
 
 /* ---------- Build Gallery ---------- */
 .builds{background:var(--bg-deep);position:relative}
-.builds::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--ember),transparent);
-  opacity:.4;
-}
 .gallery{
   display:grid;gap:14px;
   grid-template-columns:repeat(2,1fr);
@@ -394,11 +430,6 @@ p{margin:0 0 16px}
 
 /* ---------- Merch ---------- */
 .merch{background:var(--bg);position:relative;overflow:hidden}
-.merch::before{
-  content:"";position:absolute;top:50%;left:-200px;width:500px;height:500px;
-  background:radial-gradient(circle,var(--ember-glow),transparent 60%);
-  filter:blur(70px);pointer-events:none;transform:translateY(-50%);opacity:.6;
-}
 .merch-grid{
   display:grid;gap:18px;grid-template-columns:repeat(2,1fr);position:relative;
 }
@@ -425,7 +456,7 @@ p{margin:0 0 16px}
   width:62%;max-width:200px;height:auto;
   border-radius:50%;
   border:1.5px solid rgba(255,255,255,.08);
-  box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 60px rgba(243,107,28,.15);
+  box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 60px rgba(233,75,34,.15);
   transition:transform .5s var(--ease);
   position:relative;z-index:1;
 }
@@ -435,13 +466,13 @@ p{margin:0 0 16px}
   font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   padding:6px 10px;border-radius:6px;
   background:rgba(0,0,0,.65);backdrop-filter:blur(6px);
-  color:var(--ember);border:1px solid rgba(243,107,28,.35);
+  color:var(--ember);border:1px solid rgba(233,75,34,.35);
 }
 .merch-soon{
   position:absolute;top:14px;right:14px;z-index:2;
   font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   padding:6px 10px;border-radius:6px;
-  background:rgba(243,107,28,.92);color:#0A0A0A;
+  background:rgba(233,75,34,.92);color:#0A0A0A;
 }
 .merch-info{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px}
 .merch-name{font-family:var(--display);font-weight:900;font-size:17px;letter-spacing:-.005em;text-transform:uppercase;color:var(--text)}
@@ -472,7 +503,7 @@ p{margin:0 0 16px}
 .why{
   background:#000;
   background-image:
-    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(243,107,28,.08), transparent 50%),
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(233,75,34,.08), transparent 50%),
     linear-gradient(180deg,#000 0%,var(--bg) 100%);
   position:relative;
 }
@@ -514,10 +545,10 @@ p{margin:0 0 16px}
 .contact{
   background:var(--bg);position:relative;overflow:hidden;
 }
-.contact::before{
-  content:"";position:absolute;top:-300px;right:-300px;width:700px;height:700px;
+.contact::after{
+  content:"";position:absolute;top:-280px;right:-260px;width:680px;height:680px;
   background:radial-gradient(circle,var(--ember-glow),transparent 60%);
-  filter:blur(80px);pointer-events:none;
+  filter:blur(80px);pointer-events:none;z-index:0;opacity:.55;
 }
 .contact-grid{display:grid;gap:48px;grid-template-columns:1fr;position:relative}
 @media(min-width:1024px){.contact-grid{grid-template-columns:1fr 1.2fr;gap:72px;align-items:start}}
@@ -527,7 +558,7 @@ p{margin:0 0 16px}
 .ci-item{display:flex;gap:18px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line)}
 .ci-icon{
   width:44px;height:44px;border-radius:10px;flex-shrink:0;
-  background:rgba(243,107,28,.12);border:1px solid rgba(243,107,28,.3);
+  background:rgba(233,75,34,.12);border:1px solid rgba(233,75,34,.3);
   display:flex;align-items:center;justify-content:center;color:var(--ember);
 }
 .ci-icon svg{width:18px;height:18px}
@@ -549,7 +580,7 @@ p{margin:0 0 16px}
 .form-step-num{font-family:var(--display);font-weight:900;font-size:13px;color:var(--ember);letter-spacing:.04em}
 
 .progress{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:36px}
-.progress-bar{height:100%;background:linear-gradient(90deg,var(--ember),#FFB36B);transition:width .4s var(--ease);width:20%;border-radius:2px;box-shadow:0 0 12px var(--ember-glow)}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--ember-deep),var(--ember),var(--ember-light));transition:width .4s var(--ease);width:20%;border-radius:2px;box-shadow:0 0 12px var(--ember-glow)}
 
 .step-pane{display:none;animation:fadeUp .35s var(--ease)}
 .step-pane.active{display:block}
@@ -608,13 +639,13 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='12' ry='12' fill='none' stroke='%233A3A3A' stroke-width='2' stroke-dasharray='8 6'/></svg>");
 }
 .file-drop:hover{
-  background-color:rgba(243,107,28,.05);color:var(--ember);
+  background-color:rgba(233,75,34,.05);color:var(--ember);
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='12' ry='12' fill='none' stroke='%23F36B1C' stroke-width='2' stroke-dasharray='8 6'/></svg>");
 }
 .file-drop input{display:none}
 .file-drop .upload-icon{
   width:48px;height:48px;border-radius:50%;
-  background:rgba(243,107,28,.1);border:1px solid rgba(243,107,28,.3);
+  background:rgba(233,75,34,.1);border:1px solid rgba(233,75,34,.3);
   display:flex;align-items:center;justify-content:center;color:var(--ember);
   margin-bottom:4px;transition:transform .25s var(--ease);
 }
@@ -636,7 +667,7 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .success{display:none;text-align:center;padding:48px 16px;animation:fadeUp .4s var(--ease)}
 .success.show{display:block}
 .success-icon{
-  width:72px;height:72px;border-radius:50%;background:rgba(243,107,28,.15);border:1.5px solid var(--ember);
+  width:72px;height:72px;border-radius:50%;background:rgba(233,75,34,.15);border:1.5px solid var(--ember);
   display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:var(--ember);
 }
 .success-icon svg{width:32px;height:32px}
