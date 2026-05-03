@@ -290,15 +290,30 @@ p{margin:0 0 16px}
 .hero-bg{
   position:absolute;inset:0;z-index:0;
 }
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-bg img{
+  width:100%;height:100%;object-fit:cover;object-position:center 40%;
+  filter:brightness(1.08) contrast(1.06) saturate(1.12);
+}
+/* directional scrim — heavy on the left where headline sits, almost transparent on the right so the truck reads */
 .hero-bg::after{
   content:"";position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(10,10,10,.55), rgba(10,10,10,.92) 70%),
-    linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.4) 40%, rgba(10,10,10,.95) 100%);
+    linear-gradient(100deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.62) 30%, rgba(10,10,10,.18) 60%, rgba(10,10,10,0) 90%),
+    linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 22%, rgba(10,10,10,0) 70%, rgba(14,12,10,.65) 100%),
+    /* subtle ember light leak in upper-right for warmth */
+    radial-gradient(ellipse 60% 55% at 90% 10%, rgba(233,75,34,.18), transparent 60%);
+}
+@media(max-width:767px){
+  /* on mobile the headline stacks over the truck — needs a vertical scrim instead */
+  .hero-bg::after{
+    background:
+      linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 35%, rgba(10,10,10,.05) 55%, rgba(10,10,10,.55) 80%, rgba(14,12,10,.85) 100%),
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(233,75,34,.14), transparent 60%);
+  }
+  .hero-bg img{object-position:center 35%}
 }
 .hero-grain{
-  position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:overlay;opacity:.18;
+  position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:overlay;opacity:.09;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
 }
 .hero-inner{position:relative;z-index:2;width:100%}
