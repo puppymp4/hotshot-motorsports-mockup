@@ -448,34 +448,32 @@ p{margin:0 0 16px}
 .merch-grid{
   display:grid;gap:18px;grid-template-columns:repeat(2,1fr);position:relative;
 }
-@media(min-width:768px){.merch-grid{grid-template-columns:repeat(4,1fr);gap:22px}}
+@media(min-width:768px){.merch-grid{grid-template-columns:repeat(3,1fr);gap:22px}}
 .merch-card{
   position:relative;border-radius:var(--radius);overflow:hidden;
   border:1px solid var(--line);background:var(--bg-elev);
   display:flex;flex-direction:column;
-  transition:transform .3s var(--ease),border-color .25s var(--ease);
+  transition:transform .3s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);
   cursor:pointer;
 }
-.merch-card:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+.merch-card:hover{transform:translateY(-4px);border-color:var(--line-strong);box-shadow:0 24px 60px -16px rgba(0,0,0,.6), 0 0 30px -8px var(--ember-glow)}
 .merch-stage{
   position:relative;aspect-ratio:1/1;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(120% 120% at 50% 30%, var(--m-bg-light, #1a1a1a) 0%, var(--m-bg-dark, #0a0a0a) 100%);
-}
-.merch-stage::before{
-  content:"";position:absolute;inset:0;
-  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px,transparent 1px,transparent 6px);
-  pointer-events:none;
+  background:#000;
 }
 .merch-stage img{
-  width:62%;max-width:200px;height:auto;
-  border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.08);
-  box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 60px rgba(233,75,34,.15);
-  transition:transform .5s var(--ease);
-  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .6s var(--ease),filter .3s var(--ease);
+  filter:saturate(1.05);
 }
-.merch-card:hover .merch-stage img{transform:scale(1.05) rotate(-2deg)}
+.merch-card:hover .merch-stage img{transform:scale(1.04);filter:saturate(1.15)}
+.merch-stage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg, transparent 0%, transparent 65%, rgba(0,0,0,.45) 100%);
+  opacity:.7;transition:opacity .3s var(--ease);
+}
+.merch-card:hover .merch-stage::after{opacity:.4}
 .merch-tag{
   position:absolute;top:14px;left:14px;z-index:2;
   font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
@@ -1019,67 +1017,54 @@ footer{
         <span class="eyebrow">Hotshot Merch</span>
         <h2>Wear the brand.<br>Rep the <span style="color:var(--ember)">shop.</span></h2>
       </div>
-      <p class="lede">Apparel cut from the same playbook as the builds. Heavyweight cotton. Embroidered patches. Limited drops. Tag us when you wear it. We repost the cleanest fits monthly.</p>
+      <p class="lede">Three drops live. Designed in-house, printed by Cali Built Graphics. Heavyweight blanks. Tag us when you wear it. We repost the cleanest fits monthly.</p>
     </div>
 
     <div class="merch-grid reveal">
-      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
-        <div class="merch-stage" style="--m-bg-light:#1c1c1c;--m-bg-dark:#080808">
-          <span class="merch-tag">Tee</span>
-          <img src="/images/logo.jpg" alt="Hotshot Motorsports embroidered tee">
+      <a href="https://builtbyhotshot.com/shop/ols/products/new-denali-orange-logo-sweatshirts" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage">
+          <span class="merch-tag">Sweatshirt</span>
+          <img src="/images/merch/sweatshirt-orange.jpg" alt="New Denali Orange Logo Sweatshirt by Hotshot Motorsports">
         </div>
         <div class="merch-info">
-          <div class="merch-name">Shop Tee · Black</div>
+          <div class="merch-name">New Denali Orange Logo Sweatshirt</div>
           <div class="merch-row">
-            <span><span class="merch-from">From</span><span class="merch-price">$32</span></span>
+            <span><span class="merch-price">$35</span></span>
           </div>
         </div>
       </a>
 
-      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
-        <div class="merch-stage" style="--m-bg-light:#0c1a26;--m-bg-dark:#04080d">
-          <span class="merch-tag">Hoodie</span>
-          <span class="merch-soon">New Drop</span>
-          <img src="/images/logo.jpg" alt="Hotshot Motorsports heavyweight hoodie">
+      <a href="https://builtbyhotshot.com/shop/ols/products/new-denali-orange-logo-t-shirt" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage">
+          <span class="merch-tag">T-Shirt</span>
+          <img src="/images/merch/tee-orange.jpg" alt="New Denali Orange Logo T-Shirt by Hotshot Motorsports">
         </div>
         <div class="merch-info">
-          <div class="merch-name">Heavyweight Hoodie</div>
+          <div class="merch-name">New Denali Orange Logo T-Shirt</div>
           <div class="merch-row">
-            <span><span class="merch-from">From</span><span class="merch-price">$68</span></span>
+            <span><span class="merch-price">$35</span></span>
           </div>
         </div>
       </a>
 
-      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
-        <div class="merch-stage" style="--m-bg-light:#1f1410;--m-bg-dark:#0a0604">
-          <span class="merch-tag">Snapback</span>
-          <img src="/images/logo.jpg" alt="Hotshot Motorsports embroidered snapback hat">
+      <a href="https://builtbyhotshot.com/shop/ols/products/blue-logo-anylevel-trucks-sweaters-only" target="_blank" rel="noopener" class="merch-card">
+        <div class="merch-stage">
+          <span class="merch-tag">Sweater</span>
+          <span class="merch-soon">Drop</span>
+          <img src="/images/merch/sweater-blue-anylevel.jpg" alt="Blue Logo Anylevel Trucks sweater by Hotshot Motorsports">
         </div>
         <div class="merch-info">
-          <div class="merch-name">Embroidered Snapback</div>
+          <div class="merch-name">Blue Logo Anylevel Trucks · Sweater</div>
           <div class="merch-row">
-            <span><span class="merch-from">From</span><span class="merch-price">$38</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="merch-card">
-        <div class="merch-stage" style="--m-bg-light:#181818;--m-bg-dark:#060606">
-          <span class="merch-tag">Decals</span>
-          <img src="/images/logo.jpg" alt="Hotshot Motorsports vinyl decal sticker pack">
-        </div>
-        <div class="merch-info">
-          <div class="merch-name">Vinyl Decal Pack</div>
-          <div class="merch-row">
-            <span><span class="merch-from">From</span><span class="merch-price">$12</span></span>
+            <span><span class="merch-price">$60</span></span>
           </div>
         </div>
       </a>
     </div>
 
     <div style="text-align:center;margin-top:48px;position:relative" class="reveal">
-      <a href="https://builtbyhotshot.com/shop" target="_blank" rel="noopener" class="btn btn-primary">
-        Shop The Full Collection
+      <a href="https://builtbyhotshot.com/shop/ols/categories/merch" target="_blank" rel="noopener" class="btn btn-primary">
+        Shop All Merch
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
     </div>
