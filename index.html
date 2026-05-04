@@ -687,52 +687,6 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .success h3{font-size:28px;margin-bottom:12px}
 .success p{color:var(--muted);max-width:42ch;margin:0 auto 8px}
 
-/* IG-specific success state */
-.success-msg-preview{
-  text-align:left;margin:24px auto 16px;max-width:480px;
-  background:rgba(0,0,0,.5);border:1px solid var(--line-strong);border-radius:10px;
-  padding:16px 18px;font-size:13px;color:var(--text);line-height:1.55;
-  white-space:pre-wrap;font-family:var(--body);
-  max-height:220px;overflow-y:auto;
-}
-.copy-again-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:12px;padding:10px 18px;border-radius:999px;
-  border:1.5px solid var(--line-strong);background:rgba(255,255,255,.02);
-  font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);cursor:pointer;transition:all .2s;
-}
-.copy-again-btn:hover{border-color:var(--ember);color:var(--ember)}
-.copy-again-btn svg{width:14px;height:14px}
-
-/* email fallback link under form-nav (only on final step) */
-.alt-submit{
-  display:none;text-align:center;margin-top:18px;font-size:13px;color:var(--muted);
-}
-.alt-submit.show{display:block}
-.link-btn{
-  background:none;border:0;padding:0;cursor:pointer;
-  color:var(--ember);text-decoration:underline;text-underline-offset:3px;
-  font-weight:600;font-size:13px;font-family:var(--body);
-  transition:color .2s;
-}
-.link-btn:hover{color:var(--ember-light)}
-
-/* Toast notification */
-.toast{
-  position:fixed;left:50%;top:24px;transform:translateX(-50%) translateY(-50px);
-  z-index:200;padding:14px 22px;border-radius:12px;
-  background:rgba(20,18,15,.96);backdrop-filter:blur(12px);
-  border:1px solid var(--ember);color:var(--text);
-  font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.04em;
-  display:flex;gap:10px;align-items:center;
-  opacity:0;transition:opacity .3s var(--ease),transform .3s var(--ease);
-  box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 32px var(--ember-glow);
-  pointer-events:none;max-width:90vw;text-align:center;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast svg{width:18px;height:18px;color:var(--ember);flex-shrink:0}
-
 /* map */
 .map-wrap{
   margin-top:48px;border-radius:var(--radius);overflow:hidden;
@@ -1379,12 +1333,8 @@ footer{
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </button>
           </div>
-          <div class="alt-submit" id="altSubmit">
-            Prefer email? <button type="button" class="link-btn" id="emailSubmitBtn">Send to inbox instead</button>
-          </div>
         </form>
 
-        <!-- Email-path success -->
         <div class="success" id="success" role="status" aria-live="polite">
           <div class="success-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1392,21 +1342,6 @@ footer{
           <h3>Build request locked in.</h3>
           <p>We just got your details. Expect a call or text from a real human within one business day.</p>
           <p style="margin-top:16px;font-size:14px">Need it sooner? Call <a href="tel:5593969670" style="color:var(--ember);font-weight:700">(559) 396-9670</a>.</p>
-        </div>
-
-        <!-- IG DM-path success -->
-        <div class="success" id="successIG" role="status" aria-live="polite">
-          <div class="success-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </div>
-          <h3>Instagram is open.</h3>
-          <p>Your build details are copied. In the DM that just opened, <strong style="color:var(--text)">long-press the message box, hit Paste, then Send.</strong></p>
-          <div class="success-msg-preview" id="msgPreview" aria-label="Message preview"></div>
-          <button type="button" class="copy-again-btn" id="copyAgainBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            Copy again
-          </button>
-          <p style="margin-top:18px;font-size:14px">DM didn't open? <a href="https://ig.me/m/hotshotmotorsports" target="_blank" rel="noopener" style="color:var(--ember);font-weight:700">Open it manually →</a></p>
         </div>
       </div>
     </div>
@@ -1514,8 +1449,6 @@ footer{
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // ====== FORM ======
-  const IG_USERNAME = 'hotshotmotorsports';
-
   const form = document.getElementById('leadForm');
   const panes = form.querySelectorAll('.step-pane');
   const total = panes.length;
@@ -1524,27 +1457,18 @@ footer{
   const formLabel = document.getElementById('formLabel');
   const backBtn = document.getElementById('backBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const altSubmit = document.getElementById('altSubmit');
-  const emailSubmitBtn = document.getElementById('emailSubmitBtn');
   const success = document.getElementById('success');
-  const successIG = document.getElementById('successIG');
-  const msgPreview = document.getElementById('msgPreview');
-  const copyAgainBtn = document.getElementById('copyAgainBtn');
 
   const stepLabels = {
     1: 'What you need',
     2: 'Your vehicle',
     3: 'Your vision',
     4: 'Timeline & budget',
-    5: 'Send your request'
+    5: 'Contact info'
   };
 
   let step = 1;
   const data = {services: [], timeline: '', budget: ''};
-  let lastMessage = '';
-
-  const igIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>';
-  const arrowIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
 
   function showStep(n) {
     panes.forEach(p => p.classList.toggle('active', +p.dataset.step === n));
@@ -1553,73 +1477,11 @@ footer{
     formLabel.textContent = stepLabels[n];
     backBtn.disabled = n === 1;
     nextBtn.innerHTML = n === total
-      ? 'Send as Instagram DM ' + igIcon
-      : 'Next ' + arrowIcon;
-    altSubmit.classList.toggle('show', n === total);
+      ? 'Send Build Request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>'
+      : 'Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
+    // focus first input in pane
     const firstInput = form.querySelector(`.step-pane[data-step="${n}"] input, .step-pane[data-step="${n}"] textarea, .step-pane[data-step="${n}"] .chip`);
     if (firstInput) setTimeout(() => firstInput.focus({preventScroll:true}), 280);
-  }
-
-  // ---- helpers ----
-  function collectData() {
-    data.year = document.getElementById('year').value;
-    data.make = document.getElementById('make').value;
-    data.model = document.getElementById('model').value;
-    data.vision = document.getElementById('vision').value;
-    data.name = document.getElementById('name').value;
-    data.phone = document.getElementById('phone').value;
-    data.email = document.getElementById('email').value;
-  }
-
-  function buildMessage(d) {
-    const services = Array.isArray(d.services) ? d.services.join(', ') : '';
-    const truck = [d.year, d.make, d.model].filter(Boolean).join(' ');
-    return [
-      'Hey Hotshot, sent this from your site:',
-      '',
-      'Looking at: ' + services,
-      'Truck: ' + truck,
-      'The vision: ' + d.vision,
-      'Timeline: ' + d.timeline,
-      'Budget: ' + d.budget,
-      '',
-      d.name,
-      d.phone,
-      d.email
-    ].join('\n');
-  }
-
-  async function copyText(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (e) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.cssText = 'position:fixed;left:-9999px;top:0';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      let ok = false;
-      try { ok = document.execCommand('copy'); } catch(e2) {}
-      document.body.removeChild(ta);
-      return ok;
-    }
-  }
-
-  let toastEl = null;
-  function showToast(msg, ms) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.className = 'toast';
-      toastEl.setAttribute('role','status');
-      toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span></span>';
-      document.body.appendChild(toastEl);
-    }
-    toastEl.querySelector('span').textContent = msg;
-    requestAnimationFrame(() => toastEl.classList.add('show'));
-    clearTimeout(toastEl._t);
-    toastEl._t = setTimeout(() => toastEl.classList.remove('show'), ms || 4500);
   }
 
   // chips
@@ -1689,43 +1551,25 @@ footer{
     return valid;
   }
 
-  nextBtn.addEventListener('click', async () => {
+  nextBtn.addEventListener('click', () => {
     if (!validateStep(step)) return;
     if (step < total) {
       step++;
       showStep(step);
-      return;
+    } else {
+      // submit
+      data.year = document.getElementById('year').value;
+      data.make = document.getElementById('make').value;
+      data.model = document.getElementById('model').value;
+      data.vision = document.getElementById('vision').value;
+      data.name = document.getElementById('name').value;
+      data.phone = document.getElementById('phone').value;
+      data.email = document.getElementById('email').value;
+      // For prospect mockup we just show success. In production this POSTs to Formspree / Resend.
+      form.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({behavior:'smooth', block:'center'});
     }
-    // Final step → IG DM submit (primary path)
-    collectData();
-    lastMessage = buildMessage(data);
-    const copied = await copyText(lastMessage);
-    // Open IG DM in a new tab — happens in same click gesture so popup not blocked
-    window.open('https://ig.me/m/' + IG_USERNAME, '_blank', 'noopener');
-    // Show IG-specific success state
-    msgPreview.textContent = lastMessage;
-    form.style.display = 'none';
-    altSubmit.classList.remove('show');
-    successIG.classList.add('show');
-    successIG.scrollIntoView({behavior:'smooth', block:'center'});
-    showToast(copied ? 'Copied! Paste in the DM that just opened.' : 'Tap "Copy again" to retry, then paste in the DM.');
-  });
-
-  // Email fallback path
-  emailSubmitBtn.addEventListener('click', () => {
-    if (!validateStep(step)) return;
-    collectData();
-    // For prospect mockup we just show success. In production this POSTs to Formspree / Resend.
-    form.style.display = 'none';
-    altSubmit.classList.remove('show');
-    success.classList.add('show');
-    success.scrollIntoView({behavior:'smooth', block:'center'});
-  });
-
-  // Re-copy from IG success state
-  copyAgainBtn.addEventListener('click', async () => {
-    const ok = await copyText(lastMessage);
-    showToast(ok ? 'Copied again. Paste in the DM.' : 'Copy failed. Long-press the message above to copy.');
   });
 
   backBtn.addEventListener('click', () => {
