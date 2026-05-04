@@ -304,13 +304,26 @@ p{margin:0 0 16px}
     radial-gradient(ellipse 60% 55% at 90% 10%, rgba(233,75,34,.18), transparent 60%);
 }
 @media(max-width:767px){
-  /* on mobile the headline stacks over the truck — needs a vertical scrim instead */
+  /* mobile: heavier scrim where the headline + subhead live (top), lighter where the truck reveals (around the CTA area), readability scrim returns under the trust strip */
   .hero-bg::after{
     background:
-      linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 35%, rgba(10,10,10,.05) 55%, rgba(10,10,10,.55) 80%, rgba(14,12,10,.85) 100%),
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(233,75,34,.14), transparent 60%);
+      linear-gradient(180deg,
+        rgba(10,10,10,.88) 0%,
+        rgba(10,10,10,.82) 22%,
+        rgba(10,10,10,.74) 42%,
+        rgba(10,10,10,.5) 58%,
+        rgba(10,10,10,.18) 72%,
+        rgba(10,10,10,.5) 88%,
+        rgba(14,12,10,.92) 100%),
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(233,75,34,.12), transparent 60%);
   }
-  .hero-bg img{object-position:center 35%}
+  .hero-bg img{object-position:center 22%}
+  /* legibility halos so type stays readable wherever the scrim thins.
+     drop-shadow on the h1 follows the gradient-clipped glyph shape (text-shadow does not) */
+  .hero h1{filter:drop-shadow(0 2px 6px rgba(0,0,0,.92)) drop-shadow(0 0 28px rgba(0,0,0,.55))}
+  .hero-sub{text-shadow:0 2px 8px rgba(0,0,0,.92), 0 0 18px rgba(0,0,0,.6)}
+  .hero .eyebrow{text-shadow:0 1px 4px rgba(0,0,0,.85)}
+  .hero-trust .trust-item{text-shadow:0 1px 4px rgba(0,0,0,.85)}
 }
 .hero-grain{
   position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:overlay;opacity:.09;
