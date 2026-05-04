@@ -113,6 +113,12 @@
   --chrome:#C9CDD4;
   --chrome-bright:#E8EBF0;
   --gold:#E8B341;
+  /* electric royal blue — secondary accent (matches the Anylevel sweater design) */
+  --blue:#2A6DF4;
+  --blue-deep:#1746B5;
+  --blue-light:#5A93FF;
+  --blue-glow:rgba(42,109,244,.32);
+  --blue-soft:rgba(42,109,244,.10);
   /* fine carbon weave — applied as overlay across sections */
   --carbon:repeating-linear-gradient(45deg, rgba(255,255,255,.018) 0 1px, transparent 1px 5px);
   --carbon-fine:repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 1px, transparent 1px 4px);
@@ -221,6 +227,11 @@ p{margin:0 0 16px}
   box-shadow:0 0 0 0 var(--ember-glow), 0 12px 32px -12px rgba(233,75,34,.65);
 }
 .btn-primary:hover{background:#FF5C2E;transform:translateY(-2px);box-shadow:0 0 0 6px var(--ember-glow), 0 18px 40px -12px rgba(233,75,34,.7)}
+.btn-blue{
+  background:var(--blue);color:#fff;
+  box-shadow:0 0 0 0 var(--blue-glow), 0 12px 32px -12px rgba(42,109,244,.65);
+}
+.btn-blue:hover{background:var(--blue-light);transform:translateY(-2px);box-shadow:0 0 0 6px var(--blue-glow), 0 18px 40px -12px rgba(42,109,244,.7)}
 .btn-ghost{
   border-color:var(--line-strong);color:var(--text);background:rgba(255,255,255,.02);
   backdrop-filter:blur(6px);
@@ -498,7 +509,8 @@ p{margin:0 0 16px}
   position:absolute;top:14px;right:14px;z-index:2;
   font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   padding:6px 10px;border-radius:6px;
-  background:rgba(233,75,34,.92);color:#0A0A0A;
+  background:var(--blue);color:#fff;
+  box-shadow:0 4px 14px rgba(42,109,244,.4);
 }
 .merch-info{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px}
 .merch-name{font-family:var(--display);font-weight:900;font-size:17px;letter-spacing:-.005em;text-transform:uppercase;color:var(--text)}
@@ -521,6 +533,14 @@ p{margin:0 0 16px}
   background:linear-gradient(180deg,var(--ember) 0%,#7B3308 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   line-height:1;margin-bottom:16px;
+}
+/* alternate ember/blue step numbers for visual rhythm across the 4 steps */
+.step:nth-child(2n) .step-num{
+  background:linear-gradient(180deg,var(--blue-light) 0%,var(--blue-deep) 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.step:nth-child(2n)::before{
+  background:var(--blue);box-shadow:0 0 12px var(--blue-glow);
 }
 .step h3{font-size:20px;margin-bottom:12px}
 .step p{color:var(--muted);font-size:14px;line-height:1.55;margin:0}
@@ -806,12 +826,12 @@ footer{
   <div class="wrap hero-inner">
     <span class="eyebrow">Fresno, CA · Since 2014</span>
     <h1>
-      Built Loud.<br>
-      Built Right.<br>
-      Built In <span class="ember">Fresno.</span>
+      Where <span class="ember">Fresno&rsquo;s</span><br>
+      hardest builds<br>
+      get built.
     </h1>
     <p class="hero-sub">
-      The truck shop Fresno calls when stock is not enough. SEMA-grade lift kits, forged wheels, custom lighting, and color-match wraps. You walk in with a truck. You roll out with a statement.
+      SEMA show floor 2024 and 2025. 21K followers. 700+ builds out the door. Lift kits, forged wheels, color match, and custom lighting under one roof at 3770 N Marty.
     </p>
     <div class="hero-cta">
       <a href="#contact" class="btn btn-primary">
@@ -1420,7 +1440,7 @@ footer{
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
     Call
   </a>
-  <a href="#contact" class="btn btn-primary">Build My Truck</a>
+  <a href="#contact" class="btn btn-blue">Build My Truck</a>
 </div>
 
 <script>
